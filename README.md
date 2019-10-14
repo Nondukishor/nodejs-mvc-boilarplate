@@ -1,5 +1,5 @@
 # nodejs-mvc-boilarplate
 
-npm install
+# - npm install
 
-npm start
+# - npm start
