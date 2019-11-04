@@ -20,7 +20,7 @@ const constant            = require('./config/constants');
  const  mongoose          = require('mongoose');
  const mysql              = require('mysql')
  const sqlite3            = require('sqlite3').verbose();
- const { Pool, Client }   = require('pg')
+ const {Client }          = require('pg')
 
 
 const passport            = require('passport');
@@ -63,8 +63,9 @@ let connection = new sqlite3.Database(dbSqllite3, (err) => {
     }
     console.log('Connected to the in-memory SQlite database.');
   });
-   
-  // close the database connection
+  /***********close the database connection*****************/
+
+
   connection.close((err) => {
     if (err) {
       return console.error(err.message);
@@ -136,4 +137,6 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
     res.status(500).render('404', {title: "Sorry, page not found"});
 });
+
+
 exports = module.exports = app;
