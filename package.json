@@ -18,7 +18,7 @@
     "dateformat": "latest",
     "debug": "~2.2.0",
     "dotenv": "^8.1.0",
-    "ejs": "~2.3.3",
+    "ejs": "~2.5.5",
     "express": "~4.13.1",
     "express-mailer": "^0.3.0",
     "express-mvc-generator": "^2.2.4",
