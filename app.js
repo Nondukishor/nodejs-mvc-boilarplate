@@ -1,37 +1,94 @@
-var express = require('express');
-
-var app = express();
-var multer = require('multer')
-var constants = require('constants');
-var constant = require('./config/constants');
+/* Author   :   Nipu Chakraborty
+   Email    :   pro.nipu@gmail.com
+   facebook :   https://facebook.com/pro.nipuchakraborty
 
 
-var port = process.env.PORT || 3000;
-// var mongoose = require('mongoose');
-var passport = require('passport');
-var flash = require('connect-flash');
-var path = require('path');
+   Note : if you connect any database please close other connection 
+   or comment them for avoid error
 
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var bodyParser = require('body-parser');
-var dateFormat = require('dateformat');
-var now = new Date();
+ */
+
+
+
+const express = require('express');
+const app = express();
+
+const multer              = require('multer')
+const constants           = require('constants');
+const constant            = require('./config/constants');
+
+ const  mongoose          = require('mongoose');
+ const mysql              = require('mysql')
+ const sqlite3            = require('sqlite3').verbose();
+ const { Pool, Client }   = require('pg')
+
+
+const passport            = require('passport');
+const flash               = require('connect-flash');
+const path                = require('path');
+
+const morgan              = require('morgan');
+const cookieParser        = require('cookie-parser');
+const bodyParser          = require('body-parser');
+const session             = require('express-session');
+const dateFormat          = require('dateformat');
+const now                 = new Date();
+const {
+    mongoDB,
+    dbMysql,
+    dbPg,
+    dbSqllite3 }          = require('./config/database.js');
+
+
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: true}));
 
 
+
+
+
+
 /***************Mongodb configuratrion********************/
-// var mongoose = require('mongoose');
-// var configDB = require('./config/database.js');
-//configuration ===============================================================
+const connection = mongoose.connect(mongoDB);
+/***************Mongodb configuratrion********************/
+
+
+/***************Sqllite configuratrion********************/
+let connection = new sqlite3.Database(dbSqllite3, (err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Connected to the in-memory SQlite database.');
+  });
+   
+  // close the database connection
+  connection.close((err) => {
+    if (err) {
+      return console.error(err.message);
+    }
+    console.log('Close the database connection.');
+  });
+/***************Sqlite configuratrion********************/
+
+
+
 
 /***************MYSQL configuratrion********************/
-const connection =require('./config/database.js');
-//configuration ===============================================================
+const connection = mysql.createConnection(dbMysql)
+connection.connect()
+console.log(connection);
+/***************MYSQL configuratrion********************/
+
+
+
+
+
+/***************PG configuratrion********************/
+const connection = new Client(dbPg)
+/***************PG configuratrion********************/
 
 
 
@@ -46,11 +103,13 @@ app.use(cookieParser()); // read cookies (needed for auth)
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
+//you can also use hbs and other template as you want 
+
 //app.set('view engine', 'ejs'); // set up ejs for templating
 
 
 //required for passport
-//app.use(session({ secret: 'iloveyoudear...' })); // session secret
+//app.use(session({ secret: 'I love you dear...' })); // session secret
 
 app.use(session({
     secret: 'I Love bangladesh',
@@ -67,8 +126,7 @@ require('./config/routes.js')(app, passport); // load our routes and pass in our
 
 
 //launch ======================================================================
-app.listen(port);
-console.log('The magic happens on port ' + port);
+app.listen(port,()=>console.log(`you app running http://localhost:${port}`));
 
 //catch 404 and forward to error handler=======================================
 app.use(function (req, res, next) {

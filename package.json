@@ -21,8 +21,10 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "express-mailer": "^0.3.0",
+    "express-mvc-generator": "^2.2.4",
     "express-session": "latest",
     "fs-extra": "latest",
+    "graphql": "^14.5.8",
     "http-proxy": "latest",
     "md5": "latest",
     "mime": "latest",
@@ -37,10 +39,12 @@
     "numeral": "latest",
     "passport": "latest",
     "passport-local": "latest",
+    "pg": "^7.12.1",
     "pm2": "latest",
     "request": "latest",
     "serve-favicon": "~2.3.0",
     "simple-encryptor": "latest",
+    "sqlite3": "^4.1.0",
     "underscore": "latest"
   }
 }

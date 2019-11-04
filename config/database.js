@@ -1,44 +1,60 @@
-// module.exports = {
 
-//     'url' : 'mongodb://127.1.1.0/express' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
+require('dotenv').config()
+ /**********************************************************************
+                mongodb configuration
+
+  **********************************************************************/
+
+const mongoDB = {
+    DB_NAME: `mongodb://127.1.1.0/${process.env.DATABASE_NAME}` // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
      
-//      //Please replace your host file Here : 127.1.1.0 , Express is Collection Name (Database Name)
-// };
+     //Please replace your host file Here : 127.1.1.0 , Express is Collection Name (Database Name)
+};
 
 
  /**********************************************************************
-                mysql configureation
+                mysql configuration
 
   **********************************************************************/
-// module.exports = {
-//     host     : process.env.HOST,
-//     user     : process.env.USER,
-//     password : process.env.PASSWORD,
-//     database : process.env.DATABASE_NAME
-// };
+ const dbMysql = {
+    host     : process.env.HOST, //database host name
+    user     : process.env.USER, //database user name
+    password : process.env.PASSWORD,//database password
+    database : process.env.DATABASE_NAME //database name
+};
 
 
+ /**********************************************************************
+                postgresshQL configuration
+
+  **********************************************************************/
+
+ const dbPg = {
+   user: process.env.USER, //database user name
+   host: process.env.HOST, //database host name
+   database: process.env.DATABASE_NAME, //database name
+   password: process.env.PASSWORD, //database password
+   port: process.env.DB_PORT, //database port
+ }
 
 
-var mysql = require('mysql');
-require('dotenv').config()
-var connection = mysql.createConnection({
-    host     : process.env.HOST,
-    user     : process.env.USER,
-    password : process.env.PASSWORD,
-    database : process.env.DATABASE_NAME
-});
+ /**********************************************************************
+            sqllite3 configuration
 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected!");
-});
-
-module.exports = connection;
-
-
+  **********************************************************************/  
+ const dbSqllite3 = {
+    DB_NAME : process.env.DATABASE_NAME
+ }
 
 
 /**********************************************************************
-                 endof mysql configureation
+                 end of mysql configuration
  **********************************************************************/
+
+
+ module.exports={
+    mongoDB,
+    dbMysql,
+    dbPg,
+    dbSqllite3
+ }
