@@ -19,7 +19,7 @@
     "debug": "~2.6.9",
     "dotenv": "^8.1.0",
     "ejs": "~2.5.5",
-    "express": "~4.13.1",
+    "express": "~4.17.3",
     "express-mailer": "^0.3.0",
     "express-mvc-generator": "^2.2.4",
     "express-session": "latest",
